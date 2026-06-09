@@ -2,25 +2,40 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Music Player</title>
+  <title>Playlist Player</title>
 </head>
 <body>
-  <h1>Music</h1>
+  <h1>Music Player</h1>
 
-  <h3>Song 1</h3>
-  <audio controls>
-    <source src="music-box_1 (1).mp3" type="audio/mpeg">
-  </audio>
+  <audio id="player" controls></audio>
 
-  <h3>Song 2</h3>
-  <audio controls>
-    <source src="music-box_2 (1).mp3" type="audio/mpeg">
-  </audio>
+  <script>
+    const playlist = [
+      "music-box_1 (1).mp3",
+      "music-box_2 (1).mp3",
+      "music-box_3 (1).mp3"
+    ];
 
-  <h3>Song 3</h3>
-  <audio controls>
-    <source src="music-box_3 (1).mp3" type="audio/mpeg">
-  </audio>
+    let index = 0;
+    const player = document.getElementById("player");
 
+    function loadSong(i) {
+      player.src = playlist[i];
+      player.play();
+    }
+
+    // 次の曲へ
+    player.addEventListener("ended", function() {
+      index++;
+      if (index < playlist.length) {
+        loadSong(index);
+      } else {
+        index = 0; // ループさせたくないならこの行消す
+      }
+    });
+
+    // 最初の曲
+    loadSong(index);
+  </script>
 </body>
 </html>
